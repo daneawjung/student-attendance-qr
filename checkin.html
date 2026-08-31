@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>เช็กชื่อด้วย QR | ระบบเช็กชื่อ</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="container"><section class="card wide-card">
+<div class="topbar"><div><div class="badge">Phase 4.4 • QR Check-in</div><h1>เช็กชื่อด้วย QR</h1><p class="subtitle">สแกน QR ของนักเรียนเพื่อบันทึกการเข้าเรียน</p></div><div class="top-links"><a class="back-link" href="sessions.html">📚 คาบเรียน</a><a class="back-link" href="students.html">👨‍🎓 นักเรียน</a><a class="back-link" href="index.html">← หน้าเช็กชื่อ</a></div></div>
+<div id="connectionStatus" class="result">กำลังเชื่อมต่อฐานข้อมูล...</div>
+<div class="mode-section"><h2>1. เลือกคาบเรียน</h2><select id="sessionSelect" style="width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:12px;font-size:16px"><option value="">กำลังโหลด...</option></select><div id="sessionInfo" class="student-info hidden"></div></div>
+<div class="qr-area"><h2>2. ใส่รหัสจาก QR</h2><p class="hint">เพื่อทดสอบก่อน เราใช้ช่องกรอกรหัสนักเรียนแทนกล้องสแกน</p><input id="studentCode" placeholder="เช่น 68201050001"><button id="checkinButton">✅ เช็กชื่อ</button><div id="result" class="result hidden"></div></div>
+<div class="history"><h2>ผู้ที่เช็กชื่อแล้ว</h2><div id="recordList" class="hint">เลือกคาบเรียนก่อน</div></div>
+</section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="checkin.js"></script></body></html>
