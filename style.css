@@ -22,6 +22,8 @@ body {
   box-shadow: 0 12px 40px rgba(15, 23, 42, .12);
 }
 
+.wide-card { width: min(100%, 980px); }
+
 .badge, .scan-badge {
   display: inline-block;
   padding: 6px 12px;
@@ -39,6 +41,24 @@ h2 { margin-bottom: 6px; }
 .subtitle, .hint { color: #64748b; }
 .mode-section { text-align: center; }
 
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.back-link, .nav-button {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.back-link { color: #3730a3; padding-top: 10px; white-space: nowrap; }
+.nav-buttons { margin: 20px 0; }
+.nav-button { padding: 11px 16px; border-radius: 12px; background: #e0e7ff; color: #3730a3; }
+
 form { margin-top: 24px; text-align: left; }
 label { display: block; margin: 14px 0 6px; font-weight: 700; }
 
@@ -48,7 +68,10 @@ input {
   border: 1px solid #cbd5e1;
   border-radius: 12px;
   font-size: 16px;
+  background: white;
 }
+
+input:disabled { background: #f1f5f9; }
 
 button {
   width: 100%;
@@ -64,6 +87,51 @@ button {
 }
 
 button:hover { opacity: .9; }
+
+.secondary { background: #e2e8f0; color: #172033; }
+
+.student-form {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr .8fr auto;
+  gap: 14px;
+  align-items: end;
+}
+
+.form-actions { min-width: 175px; }
+.form-actions button { margin-top: 0; }
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 28px 0 14px;
+}
+
+.toolbar input { flex: 1; }
+.count { white-space: nowrap; font-weight: 800; color: #475569; }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 680px; }
+th, td { padding: 13px 12px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+th { background: #f8fafc; font-size: 14px; }
+.actions { white-space: nowrap; }
+
+.small-button {
+  width: auto;
+  margin: 0 4px 0 0;
+  padding: 8px 11px;
+  font-size: 13px;
+}
+
+.small-button.danger { background: #fee2e2; color: #991b1b; }
+
+.empty-state {
+  padding: 30px;
+  text-align: center;
+  background: #f8fafc;
+  border-radius: 14px;
+  color: #64748b;
+}
 
 .qr-area {
   margin: 26px auto 0;
@@ -120,6 +188,13 @@ button:hover { opacity: .9; }
 }
 
 .hidden { display: none !important; }
+
+@media (max-width: 760px) {
+  .student-form { grid-template-columns: 1fr; }
+  .form-actions { min-width: 0; }
+  .topbar { flex-direction: column; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+}
 
 @media (max-width: 480px) {
   .container { padding: 12px; }
