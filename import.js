@@ -9,6 +9,7 @@ const errorsBox = document.getElementById("errors");
 const importButton = document.getElementById("importButton");
 const cancelButton = document.getElementById("cancelButton");
 const message = document.getElementById("message");
+const connectionStatus = document.getElementById("connectionStatus");
 
 const fields = [
   ["student_id", "รหัสนักเรียน", true],
@@ -25,6 +26,23 @@ const fields = [
 let sourceRows = [];
 let sourceHeaders = [];
 let mappedRows = [];
+let databaseReady = false;
+
+async function checkDatabase() {
+  const { error } = await supabaseClient.from("attendance_students").select("id", { count: "exact", head: true });
+  if (error) {
+    connectionStatus.textContent = `❌ ฐานข้อมูลยังไม่พร้อม: ${error.message}`;
+    connectionStatus.style.background = "#fee2e2";
+    connectionStatus.style.color = "#991b1b";
+    databaseReady = false;
+    importButton.disabled = true;
+    return;
+  }
+  connectionStatus.textContent = "🟢 เชื่อมต่อฐานข้อมูลสำเร็จ พร้อมนำเข้าข้อมูล";
+  connectionStatus.style.background = "#dcfce7";
+  connectionStatus.style.color = "#166534";
+  databaseReady = true;
+}
 
 function normalize(value) {
   return String(value ?? "").trim().toLowerCase().replace(/[\s_\-]/g, "");
@@ -89,7 +107,7 @@ function buildPreview() {
   previewBody.innerHTML = mappedRows.slice(0, 100).map(item => `<tr>${fields.map(([key]) => `<td>${escapeHtml(item[key])}</td>`).join("")}</tr>`).join("");
   errorsBox.classList.toggle("hidden", errors.length === 0);
   errorsBox.innerHTML = errors.length ? `<strong>กรุณาตรวจสอบ:</strong><ul>${errors.slice(0, 30).map(e => `<li>${escapeHtml(e)}</li>`).join("")}</ul>${errors.length > 30 ? `<p>และอีก ${errors.length - 30} รายการ</p>` : ""}` : "";
-  importButton.disabled = errors.length > 0 || mappedRows.length === 0;
+  importButton.disabled = !databaseReady || errors.length > 0 || mappedRows.length === 0;
   previewSection.classList.remove("hidden");
 }
 
@@ -112,19 +130,37 @@ fileInput.addEventListener("change", async () => {
   }
 });
 
-importButton.addEventListener("click", () => {
-  if (!mappedRows.length || importButton.disabled) return;
-  const current = JSON.parse(localStorage.getItem("students") || "[]");
-  let added = 0, updated = 0;
-  mappedRows.forEach(item => {
-    const name = [item.prefix, item.first_name, item.last_name].filter(Boolean).join(" ");
-    const index = current.findIndex(s => s.code === item.student_id);
-    const student = { code: item.student_id, name, classroom: item.class_name, studentNo: item.student_no, prefix: item.prefix, firstName: item.first_name, lastName: item.last_name, department: item.department, level: item.level, status: item.status };
-    if (index >= 0) { current[index] = { ...current[index], ...student }; updated++; }
-    else { current.push(student); added++; }
-  });
-  localStorage.setItem("students", JSON.stringify(current));
-  showMessage(`นำเข้าสำเร็จ ${added} คน | อัปเดตข้อมูลเดิม ${updated} คน | รวมในระบบ ${current.length} คน`, false);
+importButton.addEventListener("click", async () => {
+  if (!mappedRows.length || importButton.disabled || !databaseReady) return;
+  importButton.disabled = true;
+  importButton.textContent = "⏳ กำลังบันทึก...";
+
+  try {
+    const payload = mappedRows.map(item => ({
+      student_id: item.student_id,
+      student_no: item.student_no ? Number(item.student_no) : null,
+      prefix: item.prefix || null,
+      first_name: item.first_name,
+      last_name: item.last_name,
+      class_name: item.class_name,
+      department: item.department || null,
+      level: item.level || null,
+      status: item.status === "inactive" ? "inactive" : "active"
+    }));
+
+    // Upsert by the unique student_id. Existing students are updated; new students are inserted.
+    const { error } = await supabaseClient
+      .from("attendance_students")
+      .upsert(payload, { onConflict: "student_id" });
+
+    if (error) throw error;
+    showMessage(`บันทึกสำเร็จ ${payload.length} คน ลงฐานข้อมูลกลางแล้ว`, false);
+  } catch (error) {
+    showMessage(`บันทึกลงฐานข้อมูลไม่สำเร็จ: ${error.message}`, true);
+  } finally {
+    importButton.disabled = false;
+    importButton.textContent = "☁️ ยืนยันบันทึกลงฐานข้อมูล";
+  }
 });
 
 cancelButton.addEventListener("click", () => {
@@ -138,9 +174,12 @@ cancelButton.addEventListener("click", () => {
 function showMessage(text, isError) {
   message.textContent = text;
   message.classList.remove("hidden");
-  message.classList.toggle("error-message", isError);
+  message.style.background = isError ? "#fee2e2" : "#dcfce7";
+  message.style.color = isError ? "#991b1b" : "#166534";
 }
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>'"]/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "'":"&#039;", '"':"&quot;" }[char]));
 }
+
+checkDatabase();
