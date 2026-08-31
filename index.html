@@ -9,32 +9,50 @@
 <body>
   <main class="container">
     <section class="card">
-      <div class="badge">ทดลองใช้งาน v0.1</div>
+      <div class="badge">ทดลองใช้งาน v0.2</div>
       <h1>ระบบเช็กชื่อด้วย QR Code</h1>
       <p class="subtitle">วิทยาลัยเทคนิคพนมสารคาม</p>
 
-      <div class="qr-placeholder" aria-label="พื้นที่สำหรับ QR Code">
-        <div class="qr-icon">▦</div>
-        <span>QR CODE</span>
-      </div>
+      <section id="studentMode" class="mode-section hidden">
+        <div class="scan-badge">📱 สแกน QR สำเร็จ</div>
+        <h2>ยืนยันการเข้าเรียน</h2>
+        <p>ตรวจสอบข้อมูลของคุณ แล้วกดเช็กชื่อ</p>
+        <div class="student-info">
+          <div><span>รหัสนักเรียน</span><strong id="scannedStudentId">-</strong></div>
+          <div><span>ชื่อ-สกุล</span><strong id="scannedStudentName">-</strong></div>
+        </div>
+        <button id="confirmAttendance">✅ ยืนยันเช็กชื่อ</button>
+        <div id="studentResult" class="result hidden"></div>
+      </section>
 
-      <h2>เช็กชื่อเข้าเรียน</h2>
-      <p>กรอกข้อมูลเพื่อจำลองการเช็กชื่อในเวอร์ชันทดลอง</p>
+      <section id="teacherMode" class="mode-section">
+        <h2>สร้าง QR ประจำตัวนักเรียน</h2>
+        <p>กรอกข้อมูลนักเรียน แล้วสร้าง QR เพื่อให้นักเรียนสแกน</p>
+        <form id="qrForm">
+          <label for="studentId">รหัสนักเรียน</label>
+          <input id="studentId" type="text" placeholder="เช่น 67201010001" required>
 
-      <form id="attendanceForm">
-        <label for="studentId">รหัสนักเรียน</label>
-        <input id="studentId" name="studentId" type="text" placeholder="เช่น 67201010001" required>
+          <label for="studentName">ชื่อ-สกุล</label>
+          <input id="studentName" type="text" placeholder="เช่น นายสมชาย ใจดี" required>
 
-        <label for="studentName">ชื่อ-สกุล</label>
-        <input id="studentName" name="studentName" type="text" placeholder="เช่น นายสมชาย ใจดี" required>
+          <button type="submit">สร้าง QR Code</button>
+        </form>
 
-        <button type="submit">✅ เช็กชื่อ</button>
-      </form>
+        <div id="qrArea" class="qr-area hidden">
+          <div id="qrcode"></div>
+          <p id="qrStudent" class="qr-student"></p>
+          <p class="hint">ให้นักเรียนใช้กล้องโทรศัพท์สแกน QR นี้</p>
+        </div>
+      </section>
 
-      <div id="result" class="result hidden"></div>
+      <section id="historySection" class="history">
+        <h2>ประวัติการทดลอง</h2>
+        <div id="history"></div>
+      </section>
     </section>
   </main>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
