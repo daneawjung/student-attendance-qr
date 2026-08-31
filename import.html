@@ -11,18 +11,20 @@
     <section class="card wide-card">
       <div class="topbar">
         <div>
-          <div class="badge">Phase 2.1 • Excel Import</div>
+          <div class="badge">Phase 4.2 • Database Import</div>
           <h1>นำเข้ารายชื่อนักเรียน</h1>
-          <p class="subtitle">นำเข้า Excel/CSV → ตรวจสอบ → ยืนยัน</p>
+          <p class="subtitle">Excel/CSV → ตรวจสอบ → Supabase Database</p>
         </div>
         <a class="back-link" href="students.html">← จัดการนักเรียน</a>
       </div>
 
+      <div id="connectionStatus" class="result">กำลังตรวจสอบการเชื่อมต่อฐานข้อมูล...</div>
+
       <div class="import-box">
         <h2>1. เลือกไฟล์</h2>
-        <p>รองรับ .xlsx, .xls และ .csv โดยระบบจะพยายามตรวจจับหัวคอลัมน์อัตโนมัติ</p>
+        <p>รองรับ .xlsx, .xls และ .csv ระบบจะพยายามจับคู่หัวคอลัมน์กับมาตรฐานกลาง</p>
         <input id="fileInput" type="file" accept=".xlsx,.xls,.csv">
-        <p class="hint">มาตรฐานระบบ: student_id, student_no, prefix, first_name, last_name, class_name, department, level, status</p>
+        <p class="hint">จำเป็น: student_id, first_name, last_name, class_name</p>
       </div>
 
       <section id="mappingSection" class="hidden">
@@ -41,7 +43,7 @@
         </div>
         <div id="errors" class="error-box hidden"></div>
         <div class="form-actions import-actions">
-          <button id="importButton" type="button">✅ ยืนยันนำเข้า</button>
+          <button id="importButton" type="button">☁️ ยืนยันบันทึกลงฐานข้อมูล</button>
           <button id="cancelButton" type="button" class="secondary">ยกเลิก</button>
         </div>
       </section>
@@ -50,6 +52,8 @@
     </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="import.js"></script>
 </body>
