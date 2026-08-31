@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>นำเข้ารายชื่อนักเรียน | ระบบเช็กชื่อ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card wide-card">
+      <div class="topbar">
+        <div>
+          <div class="badge">Phase 2.1 • Excel Import</div>
+          <h1>นำเข้ารายชื่อนักเรียน</h1>
+          <p class="subtitle">นำเข้า Excel/CSV → ตรวจสอบ → ยืนยัน</p>
+        </div>
+        <a class="back-link" href="students.html">← จัดการนักเรียน</a>
+      </div>
+
+      <div class="import-box">
+        <h2>1. เลือกไฟล์</h2>
+        <p>รองรับ .xlsx, .xls และ .csv โดยระบบจะพยายามตรวจจับหัวคอลัมน์อัตโนมัติ</p>
+        <input id="fileInput" type="file" accept=".xlsx,.xls,.csv">
+        <p class="hint">มาตรฐานระบบ: student_id, student_no, prefix, first_name, last_name, class_name, department, level, status</p>
+      </div>
+
+      <section id="mappingSection" class="hidden">
+        <h2>2. ตรวจสอบการจับคู่คอลัมน์</h2>
+        <div id="mappingBox" class="mapping-grid"></div>
+      </section>
+
+      <section id="previewSection" class="hidden">
+        <h2>3. ตัวอย่างข้อมูล</h2>
+        <div id="summary" class="import-summary"></div>
+        <div class="table-wrap">
+          <table>
+            <thead id="previewHead"></thead>
+            <tbody id="previewBody"></tbody>
+          </table>
+        </div>
+        <div id="errors" class="error-box hidden"></div>
+        <div class="form-actions import-actions">
+          <button id="importButton" type="button">✅ ยืนยันนำเข้า</button>
+          <button id="cancelButton" type="button" class="secondary">ยกเลิก</button>
+        </div>
+      </section>
+
+      <div id="message" class="result hidden"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script src="import.js"></script>
+</body>
+</html>
