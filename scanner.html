@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>สแกน QR | ระบบเช็กชื่อ</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="container"><section class="card wide-card">
+<div class="topbar"><div><div class="badge">Phase 4.5 • Camera Scanner</div><h1>📷 สแกน QR เช็กชื่อ</h1><p class="subtitle">ใช้กล้องมือถือสแกน QR ประจำตัวนักเรียน</p></div><div class="top-links"><a class="back-link" href="checkin.html">⌨️ ทดสอบด้วยรหัส</a><a class="back-link" href="sessions.html">📚 คาบเรียน</a></div></div>
+<div id="connectionStatus" class="result">กำลังเชื่อมต่อฐานข้อมูล...</div>
+<label>คาบเรียน</label><select id="sessionSelect" style="width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:12px;font-size:16px"><option value="">กำลังโหลด...</option></select>
+<div id="reader" style="width:min(100%,520px);margin:24px auto"></div>
+<div id="scanResult" class="result hidden"></div>
+<div class="hint" style="text-align:center">หากกล้องไม่เปิด ให้ตรวจสอบสิทธิ์ Camera ของเบราว์เซอร์ และใช้เว็บไซต์ผ่าน HTTPS</div>
+</section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script><script src="scanner.js"></script></body></html>
