@@ -1,12 +1,10 @@
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: #f1f5f9;
-  color: #0f172a;
+  background: #eef2ff;
+  color: #172033;
 }
 
 .container {
@@ -17,71 +15,32 @@ body {
 }
 
 .card {
-  width: min(100%, 520px);
+  width: min(100%, 560px);
   background: white;
   border-radius: 24px;
   padding: 32px;
-  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
-  text-align: center;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, .12);
 }
 
-.badge {
+.badge, .scan-badge {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 999px;
-  background: #e0f2fe;
-  color: #0369a1;
+  background: #e0e7ff;
+  color: #3730a3;
   font-size: 14px;
-  font-weight: 700;
-}
-
-h1 {
-  margin: 16px 0 6px;
-  font-size: clamp(28px, 6vw, 40px);
-}
-
-.subtitle {
-  margin-top: 0;
-  color: #64748b;
-}
-
-.qr-placeholder {
-  width: 190px;
-  height: 190px;
-  margin: 24px auto;
-  border: 8px solid #0f172a;
-  display: grid;
-  place-items: center;
-  gap: 0;
-  background: repeating-linear-gradient(45deg, #fff, #fff 8px, #e2e8f0 8px, #e2e8f0 16px);
-}
-
-.qr-icon {
-  font-size: 72px;
-  line-height: 1;
-}
-
-.qr-placeholder span {
   font-weight: 800;
-  font-size: 14px;
-  background: white;
-  padding: 4px 8px;
 }
 
-h2 {
-  margin-bottom: 6px;
-}
+.scan-badge { background: #dcfce7; color: #166534; }
 
-form {
-  margin-top: 24px;
-  text-align: left;
-}
+h1 { margin: 16px 0 6px; font-size: clamp(28px, 6vw, 40px); }
+h2 { margin-bottom: 6px; }
+.subtitle, .hint { color: #64748b; }
+.mode-section { text-align: center; }
 
-label {
-  display: block;
-  margin: 14px 0 6px;
-  font-weight: 700;
-}
+form { margin-top: 24px; text-align: left; }
+label { display: block; margin: 14px 0 6px; font-weight: 700; }
 
 input {
   width: 100%;
@@ -97,16 +56,44 @@ button {
   padding: 15px;
   border: 0;
   border-radius: 12px;
-  background: #0f172a;
+  background: #172033;
   color: white;
   font-size: 17px;
   font-weight: 800;
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
+button:hover { opacity: .9; }
+
+.qr-area {
+  margin: 26px auto 0;
+  padding: 24px;
+  border-radius: 18px;
+  background: #f8fafc;
+  text-align: center;
 }
+
+#qrcode {
+  width: 220px;
+  min-height: 220px;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+}
+
+#qrcode img, #qrcode canvas { margin: auto; max-width: 100%; }
+.qr-student { font-weight: 800; margin: 8px 0; }
+
+.student-info {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #f8fafc;
+  text-align: left;
+}
+
+.student-info div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; }
+.student-info span { color: #64748b; }
 
 .result {
   margin-top: 20px;
@@ -117,12 +104,25 @@ button:hover {
   font-weight: 700;
 }
 
-.hidden {
-  display: none;
+.history {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
 }
 
+.history h2 { font-size: 20px; }
+.history-item {
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 10px;
+  background: #f8fafc;
+  font-size: 14px;
+}
+
+.hidden { display: none !important; }
+
 @media (max-width: 480px) {
-  .card {
-    padding: 24px 18px;
-  }
+  .container { padding: 12px; }
+  .card { padding: 24px 18px; }
+  .student-info div { flex-direction: column; gap: 2px; }
 }
