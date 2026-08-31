@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="th">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>คาบเรียน | ระบบเช็กชื่อ</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="container"><section class="card wide-card">
+<div class="topbar"><div><div class="badge">Phase 4.3 • Attendance Sessions</div><h1>จัดการคาบเรียน</h1><p class="subtitle">สร้างคาบเรียนสำหรับเปิดการเช็กชื่อ</p></div><div class="top-links"><a class="back-link" href="students.html">👨‍🎓 นักเรียน</a><a class="back-link" href="qr.html">🔲 QR</a><a class="back-link" href="index.html">← หน้าเช็กชื่อ</a></div></div>
+<form id="sessionForm" class="student-form"><div><label>รหัสวิชา</label><input id="subjectCode" placeholder="เช่น 20105-2002"></div><div><label>ชื่อวิชา *</label><input id="subjectName" required placeholder="เช่น อุปกรณ์อิเล็กทรอนิกส์"></div><div><label>ห้อง *</label><input id="className" required placeholder="เช่น ชอ.2/1"></div><div class="form-actions"><button type="submit" id="saveSession">➕ เปิดคาบเรียน</button></div><div><label>วันที่ *</label><input id="sessionDate" type="date" required></div><div><label>เวลาเริ่ม</label><input id="startTime" type="time"></div><div><label>เวลาสิ้นสุด</label><input id="endTime" type="time"></div></form>
+<div id="message" class="result hidden"></div><div class="toolbar"><input id="searchSession" type="search" placeholder="🔎 ค้นหาวิชา ห้อง หรือรหัสคาบ..."><div class="count" id="sessionCount">0 คาบ</div></div>
+<div class="table-wrap"><table><thead><tr><th>รหัสคาบ</th><th>วิชา</th><th>ห้อง</th><th>วันที่</th><th>เวลา</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="sessionTable"></tbody></table></div><div id="emptyState" class="empty-state hidden">ยังไม่มีคาบเรียน</div>
+</section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="sessions.js"></script></body></html>
