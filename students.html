@@ -10,55 +10,19 @@
   <main class="container">
     <section class="card wide-card">
       <div class="topbar">
-        <div>
-          <div class="badge">Phase 2 • Student Management</div>
-          <h1>จัดการนักเรียน</h1>
-          <p class="subtitle">เพิ่ม แก้ไข ค้นหา และสร้าง QR ประจำตัว</p>
-        </div>
-        <a class="back-link" href="index.html">← กลับหน้าเช็กชื่อ</a>
+        <div><div class="badge">Phase 2 • Student Management</div><h1>จัดการนักเรียน</h1><p class="subtitle">เพิ่ม แก้ไข ค้นหา และนำเข้ารายชื่อ</p></div>
+        <div class="top-links"><a class="back-link" href="import.html">📥 นำเข้า Excel</a><a class="back-link" href="index.html">← กลับหน้าเช็กชื่อ</a></div>
       </div>
-
       <form id="studentForm" class="student-form">
         <input type="hidden" id="editId">
-        <div>
-          <label for="studentCode">รหัสนักเรียน</label>
-          <input id="studentCode" type="text" placeholder="เช่น 67201010001" required>
-        </div>
-        <div>
-          <label for="studentName">ชื่อ-สกุล</label>
-          <input id="studentName" type="text" placeholder="เช่น นายสมชาย ใจดี" required>
-        </div>
-        <div>
-          <label for="studentClass">ห้อง</label>
-          <input id="studentClass" type="text" placeholder="เช่น ชอ.2/1" required>
-        </div>
-        <div class="form-actions">
-          <button type="submit" id="saveStudent">➕ เพิ่มนักเรียน</button>
-          <button type="button" id="cancelEdit" class="secondary hidden">ยกเลิกแก้ไข</button>
-        </div>
+        <div><label for="studentCode">รหัสนักเรียน</label><input id="studentCode" type="text" placeholder="เช่น 67201010001" required></div>
+        <div><label for="studentName">ชื่อ-สกุล</label><input id="studentName" type="text" placeholder="เช่น นายสมชาย ใจดี" required></div>
+        <div><label for="studentClass">ห้อง</label><input id="studentClass" type="text" placeholder="เช่น ชอ.2/1" required></div>
+        <div class="form-actions"><button type="submit" id="saveStudent">➕ เพิ่มนักเรียน</button><button type="button" id="cancelEdit" class="secondary hidden">ยกเลิกแก้ไข</button></div>
       </form>
-
-      <div class="toolbar">
-        <input id="searchStudent" type="search" placeholder="🔎 ค้นหารหัส ชื่อ หรือห้อง...">
-        <div class="count" id="studentCount">0 คน</div>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>รหัสนักเรียน</th>
-              <th>ชื่อ-สกุล</th>
-              <th>ห้อง</th>
-              <th>จัดการ</th>
-            </tr>
-          </thead>
-          <tbody id="studentTable"></tbody>
-        </table>
-      </div>
-
-      <div id="emptyState" class="empty-state hidden">ยังไม่มีรายชื่อนักเรียน ลองเพิ่มคนแรกด้านบน</div>
+      <div class="toolbar"><input id="searchStudent" type="search" placeholder="🔎 ค้นหารหัส ชื่อ หรือห้อง..."><div class="count" id="studentCount">0 คน</div></div>
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>รหัสนักเรียน</th><th>ชื่อ-สกุล</th><th>ห้อง</th><th>จัดการ</th></tr></thead><tbody id="studentTable"></tbody></table></div>
+      <div id="emptyState" class="empty-state hidden">ยังไม่มีรายชื่อนักเรียน ลองเพิ่มคนแรกด้านบน หรือนำเข้า Excel</div>
     </section>
   </main>
   <script src="students.js"></script>
