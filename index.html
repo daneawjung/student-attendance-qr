@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบเช็กชื่อด้วย QR Code</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <div class="badge">ทดลองใช้งาน v0.1</div>
+      <h1>ระบบเช็กชื่อด้วย QR Code</h1>
+      <p class="subtitle">วิทยาลัยเทคนิคพนมสารคาม</p>
+
+      <div class="qr-placeholder" aria-label="พื้นที่สำหรับ QR Code">
+        <div class="qr-icon">▦</div>
+        <span>QR CODE</span>
+      </div>
+
+      <h2>เช็กชื่อเข้าเรียน</h2>
+      <p>กรอกข้อมูลเพื่อจำลองการเช็กชื่อในเวอร์ชันทดลอง</p>
+
+      <form id="attendanceForm">
+        <label for="studentId">รหัสนักเรียน</label>
+        <input id="studentId" name="studentId" type="text" placeholder="เช่น 67201010001" required>
+
+        <label for="studentName">ชื่อ-สกุล</label>
+        <input id="studentName" name="studentName" type="text" placeholder="เช่น นายสมชาย ใจดี" required>
+
+        <button type="submit">✅ เช็กชื่อ</button>
+      </form>
+
+      <div id="result" class="result hidden"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
