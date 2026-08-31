@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR นักเรียน | ระบบเช็กชื่อ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card wide-card">
+      <div class="topbar">
+        <div><div class="badge">Phase 3 • Student QR</div><h1>QR ประจำตัวนักเรียน</h1><p class="subtitle">สร้าง QR จากรายชื่อที่นำเข้าไว้</p></div>
+        <div class="top-links"><a class="back-link" href="students.html">← รายชื่อนักเรียน</a><a class="back-link" href="index.html">หน้าเช็กชื่อ</a></div>
+      </div>
+      <div class="toolbar"><input id="searchStudent" type="search" placeholder="🔎 ค้นหารหัส ชื่อ หรือห้อง..."><div class="count" id="studentCount">0 คน</div></div>
+      <div id="studentGrid" class="student-grid"></div>
+      <div id="emptyState" class="empty-state hidden">ยังไม่มีรายชื่อนักเรียน</div>
+    </section>
+  </main>
+  <div id="qrModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModal" class="close">×</button>
+      <div class="badge">QR ประจำตัว</div>
+      <h2 id="modalName"></h2><p id="modalMeta" class="subtitle"></p>
+      <div id="modalQr" class="modal-qr"></div>
+      <button id="printQr">🖨️ พิมพ์ QR</button>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="qr.js"></script>
+</body>
+</html>
