@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR นักเรียน | ระบบเช็กชื่อ</title>
   <link rel="stylesheet" href="style.css">
+  <script>const sessionParam=new URLSearchParams(location.search).get('session');if(sessionParam){location.replace('session-qr.html?session='+encodeURIComponent(sessionParam));}</script>
 </head>
 <body>
   <main class="container">
@@ -28,6 +29,6 @@
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="qr.js"></script>
+  <script src="qr.js?v=20260831-3"></script>
 </body>
 </html>
