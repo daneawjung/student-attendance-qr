@@ -4,59 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ระบบเช็กชื่อด้วย QR Code</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=40">
 </head>
 <body>
   <main class="container">
-    <section class="card">
-      <div class="badge">ทดลองใช้งาน v0.3 • Phase 2</div>
-      <h1>ระบบเช็กชื่อด้วย QR Code</h1>
+    <section class="card wide-card">
+      <div class="badge">ระบบเช็กชื่อด้วย QR Code</div>
+      <h1>📚 ระบบเช็กชื่อ</h1>
       <p class="subtitle">วิทยาลัยเทคนิคพนมสารคาม</p>
 
-      <div class="nav-buttons">
-        <a href="students.html" class="nav-button">👨‍🎓 จัดการนักเรียน</a>
+      <section class="dashboard-hero">
+        <h2>ยินดีต้อนรับ 👋</h2>
+        <div class="dashboard-date">ศูนย์กลางการทำงานสำหรับครู</div>
+      </section>
+
+      <div class="dashboard-actions">
+        <a class="dashboard-action" href="dashboard.html?v=40">🏠<span>Dashboard</span></a>
+        <a class="dashboard-action" href="today.html?v=40">🗓️<span>คาบวันนี้</span></a>
+        <a class="dashboard-action" href="schedule.html?v=40">📅<span>จัดการตารางเรียน</span></a>
+        <a class="dashboard-action" href="weekly.html?v=40">📖<span>ตารางรายสัปดาห์</span></a>
+        <a class="dashboard-action" href="students.html?v=40">👨‍🎓<span>จัดการนักเรียน</span></a>
+        <a class="dashboard-action" href="import.html?v=40">📥<span>นำเข้ารายชื่อนักเรียน</span></a>
+        <a class="dashboard-action" href="sessions.html?v=40">🧾<span>Sessions</span></a>
+        <a class="dashboard-action" href="report.html?v=40">📊<span>รายงาน</span></a>
       </div>
 
-      <section id="studentMode" class="mode-section hidden">
-        <div class="scan-badge">📱 สแกน QR สำเร็จ</div>
-        <h2>ยืนยันการเข้าเรียน</h2>
-        <p>ตรวจสอบข้อมูลของคุณ แล้วกดเช็กชื่อ</p>
-        <div class="student-info">
-          <div><span>รหัสนักเรียน</span><strong id="scannedStudentId">-</strong></div>
-          <div><span>ชื่อ-สกุล</span><strong id="scannedStudentName">-</strong></div>
-        </div>
-        <button id="confirmAttendance">✅ ยืนยันเช็กชื่อ</button>
-        <div id="studentResult" class="result hidden"></div>
-      </section>
-
-      <section id="teacherMode" class="mode-section">
-        <h2>สร้าง QR ประจำตัวนักเรียน</h2>
-        <p>กรอกข้อมูลนักเรียน แล้วสร้าง QR เพื่อให้นักเรียนสแกน</p>
-        <form id="qrForm">
-          <label for="studentId">รหัสนักเรียน</label>
-          <input id="studentId" type="text" placeholder="เช่น 67201010001" required>
-
-          <label for="studentName">ชื่อ-สกุล</label>
-          <input id="studentName" type="text" placeholder="เช่น นายสมชาย ใจดี" required>
-
-          <button type="submit">สร้าง QR Code</button>
-        </form>
-
-        <div id="qrArea" class="qr-area hidden">
-          <div id="qrcode"></div>
-          <p id="qrStudent" class="qr-student"></p>
-          <p class="hint">ให้นักเรียนใช้กล้องโทรศัพท์สแกน QR นี้</p>
-        </div>
-      </section>
-
-      <section id="historySection" class="history">
-        <h2>ประวัติการทดลอง</h2>
-        <div id="history"></div>
+      <section class="history">
+        <h2>🔗 เส้นทางการทำงาน</h2>
+        <p class="subtitle">ตารางเรียน → เปิดคาบ → QR → นักเรียนเช็กชื่อ → ครูตรวจ/แก้สถานะ → รายงาน</p>
+        <a class="focus-button" href="dashboard.html?v=40">🚀 เริ่มทำงานจาก Dashboard</a>
       </section>
     </section>
   </main>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>
