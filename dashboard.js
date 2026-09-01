@@ -2,8 +2,8 @@ const list=document.getElementById('todayList');
 const todayText=document.getElementById('todayText');
 const heroDate=document.getElementById('heroDate');
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
-function localDate(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
-function todayDay(){const n=new Date().getDay();return n===0?7:n;}
+function localDate(offset=0){const d=new Date();d.setDate(d.getDate()+offset);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function todayDay(offset=0){const d=new Date();d.setDate(d.getDate()+offset);const n=d.getDay();return n===0?7:n;}
 function isCurrent(s){const now=new Date().toTimeString().slice(0,8);return now>=s.start_time&&now<=s.end_time;}
 function sessionLabel(status){return status==='open'?'🟢 กำลังเปิดเช็กชื่อ':status==='closed'?'⚫ ปิดแล้ว':'⚪ ยังไม่เปิด';}
 async function load(){
