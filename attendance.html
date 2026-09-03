@@ -7,7 +7,7 @@
   <title>ตรวจสอบการเข้าเรียน</title>
   <link rel="stylesheet" href="style.css?v=50">
   <style>
-    :root { --checkin-bg:#f8fafc;--checkin-card:#fff;--checkin-border:#e2e8f0;--checkin-muted:#64748b;--checkin-primary:#991b1b;--checkin-primary-dark:#7f1d1d;--checkin-focus:#fee2e2;--checkin-success-bg:#ecfdf5;--checkin-success:#166534;--checkin-error-bg:#fef2f2;--checkin-error:#991b1b; }
+    :root { --checkin-bg:#f8fafc;--checkin-card:#fff;--checkin-border:#e2e8f0;--checkin-muted:#64748b;--checkin-primary:#991b1b;--checkin-primary-dark:#7f1d1d;--checkin-focus:#fee2e2; }
     body { background:var(--checkin-bg); }
     .student-checkin-shell { width:100%;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:max(14px,env(safe-area-inset-top)) 10px max(18px,env(safe-area-inset-bottom)); }
     .student-checkin-card { width:min(100%,560px);margin:0 auto;padding:20px 16px 24px;background:var(--checkin-card);border:1px solid var(--checkin-border);border-radius:18px;box-shadow:0 14px 40px rgba(15,23,42,.08); }
@@ -25,7 +25,16 @@
     .student-checkin-button { width:100%;min-height:56px;margin-top:14px;padding:13px 18px;border:0;border-radius:14px;background:var(--checkin-primary);color:#fff;font-size:17px;font-weight:700;cursor:pointer;touch-action:manipulation; }
     .student-checkin-button:disabled { opacity:.55;cursor:not-allowed; }
     .checkin-message { margin-top:14px;padding:18px;border-radius:14px;line-height:1.65;white-space:pre-line;overflow-wrap:anywhere;font-size:16px;font-weight:500; }
+    .confirmation-card { margin-top:14px;padding:18px;border:1px solid #cbd5e1;border-radius:16px;background:#f8fafc;text-align:center; }
+    .confirmation-card h2 { margin:0 0 12px;font-size:20px;color:#334155; }
+    .confirmation-name { margin:0 0 8px;font-size:21px;font-weight:800;color:#7f1d1d; }
+    .confirmation-detail { margin:4px 0;color:#475569;font-size:15px;line-height:1.6; }
+    .confirmation-actions { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px; }
+    .confirmation-actions button { min-height:52px;border:0;border-radius:13px;font-size:16px;font-weight:700;cursor:pointer;touch-action:manipulation; }
+    .confirm-identity { background:#166534;color:#fff; }
+    .cancel-identity { background:#e2e8f0;color:#334155; }
     .hidden { display:none!important; }
+    @media (max-width:480px) { .confirmation-actions { grid-template-columns:1fr; } }
     @media (min-width:481px) { .student-checkin-card{padding:28px 30px 32px;border-radius:20px}.student-checkin-header h1{font-size:32px} }
   </style>
 </head>
@@ -42,15 +51,15 @@
         <form id="attendanceForm" class="student-checkin-form" novalidate>
           <label for="studentCode">รหัสนักเรียน</label>
           <input id="studentCode" class="student-code-input" type="text" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="กรอกรหัสนักเรียน" aria-label="รหัสนักเรียน" required>
-          <button id="confirmButton" class="student-checkin-button" type="submit">✅ ยืนยันเช็กชื่อ</button>
+          <button id="confirmButton" class="student-checkin-button" type="submit">🔎 ตรวจสอบข้อมูล</button>
         </form>
-        <!-- Result is outside the form so success/duplicate messages stay visible when the form is hidden. -->
+        <div id="confirmation" class="confirmation-card hidden" role="dialog" aria-labelledby="confirmationTitle" aria-live="polite"></div>
         <div id="message" class="checkin-message hidden" role="status" aria-live="polite"></div>
       </div>
     </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js?v=54"></script>
-  <script src="attendance.js?v=54"></script>
+  <script src="supabase-config.js?v=55"></script>
+  <script src="attendance.js?v=55"></script>
 </body>
 </html>
