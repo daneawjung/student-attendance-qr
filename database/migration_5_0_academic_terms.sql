@@ -36,6 +36,12 @@ on attendance_sessions(term_id, session_date, start_time);
 create index if not exists idx_subject_enrollments_term
 on attendance_subject_enrollments(term_id, subject_id, status);
 
+-- The old global weekly-slot index prevents the same timetable from existing in two semesters.
+-- Replace it with a term-aware unique index.
+drop index if exists uq_weekly_schedule_slot;
+create unique index if not exists uq_weekly_schedule_slot_by_term
+on attendance_weekly_schedules(term_id, day_of_week, start_time, subject_id, class_name);
+
 -- Keep the currently used semester as the initial active term when no term exists yet.
 insert into academic_terms(academic_year, semester, name, active)
 select 2569, 1, '2569/1', true
