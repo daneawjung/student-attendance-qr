@@ -44,13 +44,13 @@
           <input id="studentCode" class="student-code-input" type="text" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="กรอกรหัสนักเรียน" aria-label="รหัสนักเรียน" required>
           <button id="confirmButton" class="student-checkin-button" type="submit">✅ ยืนยันเช็กชื่อ</button>
         </form>
-        <!-- Keep the result outside the form so it remains visible after the form is hidden. -->
+        <!-- Result is outside the form so success/duplicate messages stay visible when the form is hidden. -->
         <div id="message" class="checkin-message hidden" role="status" aria-live="polite"></div>
       </div>
     </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js?v=53"></script>
-  <script src="attendance.js?v=53"></script>
+  <script src="supabase-config.js?v=54"></script>
+  <script src="attendance.js?v=54"></script>
 </body>
 </html>
