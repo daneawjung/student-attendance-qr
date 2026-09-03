@@ -1,6 +1,6 @@
 -- Production migration 4.11
 -- Student self-registration with per-subject capacity.
--- Run once in Supabase SQL Editor.
+-- IDs match the production UUID schema. Run once in Supabase SQL Editor.
 
 alter table attendance_subjects
   add column if not exists max_students integer,
@@ -12,8 +12,8 @@ alter table attendance_subjects add constraint attendance_subjects_max_students_
 
 create table if not exists attendance_subject_enrollments (
   id bigint generated always as identity primary key,
-  subject_id bigint not null references attendance_subjects(id) on delete cascade,
-  student_id bigint not null references attendance_students(id) on delete cascade,
+  subject_id uuid not null references attendance_subjects(id) on delete cascade,
+  student_id uuid not null references attendance_students(id) on delete cascade,
   class_name text not null,
   status text not null default 'active' check (status in ('active','inactive')),
   registered_at timestamptz not null default now(),
@@ -23,8 +23,12 @@ create table if not exists attendance_subject_enrollments (
 create index if not exists idx_subject_enrollments_subject on attendance_subject_enrollments(subject_id, status);
 create index if not exists idx_subject_enrollments_student on attendance_subject_enrollments(student_id, status);
 
+-- Production session/student IDs are UUID; do not cast session IDs to Number() in JS.
+drop function if exists register_student_for_session(bigint,text,text,text,text);
+drop function if exists register_student_for_session(uuid,text,text,text,text);
+
 create or replace function register_student_for_session(
-  p_session_id bigint, p_student_id text, p_prefix text, p_first_name text, p_last_name text
+  p_session_id uuid, p_student_id text, p_prefix text, p_first_name text, p_last_name text
 ) returns json language plpgsql security definer set search_path = public as $$
 declare
   v_session attendance_sessions%rowtype;
@@ -37,7 +41,6 @@ begin
   if not found then raise exception 'ไม่พบคาบเรียน'; end if;
   if v_session.status <> 'open' then raise exception 'คาบเรียนนี้ปิดการเช็กชื่อแล้ว'; end if;
 
-  -- Lock the subject row so simultaneous registrations cannot exceed capacity.
   select * into v_subject from attendance_subjects
     where subject_code=v_session.subject_code and active=true for update;
   if not found then raise exception 'ไม่พบรายวิชา'; end if;
@@ -69,5 +72,5 @@ begin
 end;
 $$;
 
-revoke all on function register_student_for_session(bigint,text,text,text,text) from public;
-grant execute on function register_student_for_session(bigint,text,text,text,text) to anon, authenticated;
+revoke all on function register_student_for_session(uuid,text,text,text,text) from public;
+grant execute on function register_student_for_session(uuid,text,text,text,text) to anon, authenticated;
