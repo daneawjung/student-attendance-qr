@@ -8,64 +8,26 @@
   <link rel="stylesheet" href="style.css?v=50">
   <style>
     /* Student Check-in: presentation only; attendance.js keeps the existing attendance logic. */
-    :root {
-      --checkin-bg: #f8fafc;
-      --checkin-card: #ffffff;
-      --checkin-border: #e2e8f0;
-      --checkin-muted: #64748b;
-      --checkin-primary: #991b1b;
-      --checkin-primary-dark: #7f1d1d;
-      --checkin-focus: #fee2e2;
-      --checkin-success-bg: #ecfdf5;
-      --checkin-success: #166534;
-      --checkin-error-bg: #fef2f2;
-      --checkin-error: #991b1b;
-    }
-    body { background: var(--checkin-bg); }
-    .student-checkin-shell {
-      width: 100%; min-height: 100vh; display: flex; align-items: flex-start;
-      justify-content: center; padding: max(14px, env(safe-area-inset-top)) 10px max(18px, env(safe-area-inset-bottom));
-    }
-    .student-checkin-card {
-      width: min(100%, 560px); margin: 0 auto; padding: 20px 16px 24px;
-      background: var(--checkin-card); border: 1px solid var(--checkin-border);
-      border-radius: 18px; box-shadow: 0 14px 40px rgba(15, 23, 42, .08);
-    }
-    .student-checkin-header { margin-bottom: 18px; }
-    .student-checkin-header .badge { margin: 0; font-size: 12px; padding: 6px 11px; }
-    .student-checkin-header h1 { margin: 10px 0 5px; font-size: 27px; line-height: 1.2; }
-    .student-checkin-subtitle { margin: 0; color: var(--checkin-muted); font-size: 14px; line-height: 1.55; }
-    #attendance-content { width: 100%; min-width: 0; overflow-wrap: anywhere; }
-    .session-info {
-      margin: 0 0 18px; padding: 14px; border: 1px solid #fee2e2; border-radius: 14px;
-      background: #fffafa; color: #334155; font-size: 15px; line-height: 1.7;
-    }
-    .session-info strong { display: block; margin-bottom: 2px; color: var(--checkin-primary-dark); font-size: 18px; }
-    .student-checkin-form { margin: 0; text-align: left; }
-    .student-checkin-form label { display: block; margin: 0 0 8px; font-size: 15px; font-weight: 600; color: #334155; }
-    .student-code-input {
-      width: 100%; min-height: 56px; padding: 13px 15px; border: 1px solid #cbd5e1;
-      border-radius: 14px; font-size: 18px; line-height: 1.3; text-align: center;
-      letter-spacing: .04em; background: #fff;
-    }
-    .student-code-input:focus { outline: 3px solid var(--checkin-focus); outline-offset: 1px; border-color: #b91c1c; }
-    .student-checkin-button {
-      width: 100%; min-height: 56px; margin-top: 14px; padding: 13px 18px; border: 0;
-      border-radius: 14px; background: var(--checkin-primary); color: #fff; font-size: 17px;
-      font-weight: 700; cursor: pointer; touch-action: manipulation;
-    }
-    .student-checkin-button:disabled { opacity: .55; cursor: not-allowed; }
-    .checkin-message {
-      margin-top: 14px; padding: 15px; border-radius: 14px; line-height: 1.65;
-      white-space: pre-line; overflow-wrap: anywhere;
-    }
-    .checkin-message.success { background: var(--checkin-success-bg); color: var(--checkin-success); }
-    .checkin-message.error { background: var(--checkin-error-bg); color: var(--checkin-error); }
-    .hidden { display: none !important; }
-    @media (min-width: 481px) {
-      .student-checkin-card { padding: 28px 30px 32px; border-radius: 20px; }
-      .student-checkin-header h1 { font-size: 32px; }
-    }
+    :root { --checkin-bg:#f8fafc;--checkin-card:#fff;--checkin-border:#e2e8f0;--checkin-muted:#64748b;--checkin-primary:#991b1b;--checkin-primary-dark:#7f1d1d;--checkin-focus:#fee2e2;--checkin-success-bg:#ecfdf5;--checkin-success:#166534;--checkin-error-bg:#fef2f2;--checkin-error:#991b1b; }
+    body { background:var(--checkin-bg); }
+    .student-checkin-shell { width:100%;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:max(14px,env(safe-area-inset-top)) 10px max(18px,env(safe-area-inset-bottom)); }
+    .student-checkin-card { width:min(100%,560px);margin:0 auto;padding:20px 16px 24px;background:var(--checkin-card);border:1px solid var(--checkin-border);border-radius:18px;box-shadow:0 14px 40px rgba(15,23,42,.08); }
+    .student-checkin-header { margin-bottom:18px; }
+    .student-checkin-header .badge { margin:0;font-size:12px;padding:6px 11px; }
+    .student-checkin-header h1 { margin:10px 0 5px;font-size:27px;line-height:1.2; }
+    .student-checkin-subtitle { margin:0;color:var(--checkin-muted);font-size:14px;line-height:1.55; }
+    #attendance-content { width:100%;min-width:0;overflow-wrap:anywhere; }
+    .session-info { margin:0 0 18px;padding:14px;border:1px solid #fee2e2;border-radius:14px;background:#fffafa;color:#334155;font-size:15px;line-height:1.7; }
+    .session-info strong { display:block;margin-bottom:2px;color:var(--checkin-primary-dark);font-size:18px; }
+    .student-checkin-form { margin:0;text-align:left; }
+    .student-checkin-form label { display:block;margin:0 0 8px;font-size:15px;font-weight:600;color:#334155; }
+    .student-code-input { width:100%;min-height:56px;padding:13px 15px;border:1px solid #cbd5e1;border-radius:14px;font-size:18px;line-height:1.3;text-align:center;letter-spacing:.04em;background:#fff;box-sizing:border-box; }
+    .student-code-input:focus { outline:3px solid var(--checkin-focus);outline-offset:1px;border-color:#b91c1c; }
+    .student-checkin-button { width:100%;min-height:56px;margin-top:14px;padding:13px 18px;border:0;border-radius:14px;background:var(--checkin-primary);color:#fff;font-size:17px;font-weight:700;cursor:pointer;touch-action:manipulation; }
+    .student-checkin-button:disabled { opacity:.55;cursor:not-allowed; }
+    .checkin-message { margin-top:14px;padding:18px;border-radius:14px;line-height:1.65;white-space:pre-line;overflow-wrap:anywhere;font-size:16px;font-weight:500; }
+    .hidden { display:none!important; }
+    @media (min-width:481px) { .student-checkin-card{padding:28px 30px 32px;border-radius:20px}.student-checkin-header h1{font-size:32px} }
   </style>
 </head>
 <body>
@@ -87,9 +49,8 @@
       </div>
     </section>
   </main>
-  <!-- Supabase must load before supabase-config.js creates the client. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
-  <script src="attendance.js?v=51"></script>
+  <script src="attendance.js?v=52"></script>
 </body>
 </html>
