@@ -1,9 +1,82 @@
 <!DOCTYPE html>
-<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>เช็กชื่อด้วย QR | ระบบเช็กชื่อ</title><link rel="stylesheet" href="style.css"></head>
-<body><main class="container"><section class="card wide-card">
-<div class="topbar"><div><div class="badge">Phase 4.4 • QR Check-in</div><h1>เช็กชื่อด้วย QR</h1><p class="subtitle">สแกน QR ของนักเรียนเพื่อบันทึกการเข้าเรียน</p></div><div class="top-links"><a class="back-link" href="sessions.html">📚 คาบเรียน</a><a class="back-link" href="students.html">👨‍🎓 นักเรียน</a><a class="back-link" href="index.html">← หน้าเช็กชื่อ</a></div></div>
-<div id="connectionStatus" class="result">กำลังเชื่อมต่อฐานข้อมูล...</div>
-<div class="mode-section"><h2>1. เลือกคาบเรียน</h2><select id="sessionSelect" style="width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:12px;font-size:16px"><option value="">กำลังโหลด...</option></select><div id="sessionInfo" class="student-info hidden"></div></div>
-<div class="qr-area"><h2>2. ใส่รหัสจาก QR</h2><p class="hint">เพื่อทดสอบก่อน เราใช้ช่องกรอกรหัสนักเรียนแทนกล้องสแกน</p><input id="studentCode" placeholder="เช่น 68201050001"><button id="checkinButton">✅ เช็กชื่อ</button><div id="result" class="result hidden"></div></div>
-<div class="history"><h2>ผู้ที่เช็กชื่อแล้ว</h2><div id="recordList" class="hint">เลือกคาบเรียนก่อน</div></div>
-</section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="checkin.js"></script></body></html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>เช็กชื่อด้วย QR | ระบบเช็กชื่อ</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Mobile-first improvements for Student Check-in */
+.checkin-page{width:100%;max-width:720px;margin:0 auto}
+.checkin-header{display:flex;flex-direction:column;gap:16px;margin-bottom:18px}
+.checkin-header h1{margin:6px 0 4px;font-size:clamp(1.55rem,7vw,2.2rem);line-height:1.2}
+.checkin-header .subtitle{margin:0;line-height:1.5}
+.checkin-links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.checkin-links a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:10px 8px;border:1px solid #e2e8f0;border-radius:10px;text-decoration:none;text-align:center;font-size:14px;background:#fff}
+.checkin-section{margin-top:14px;padding:16px;border-radius:16px;background:#f8fafc}
+.checkin-section h2{font-size:1.05rem;margin:0 0 12px;line-height:1.4}
+#sessionSelect{box-sizing:border-box;min-height:50px;width:100%;padding:12px!important;font-size:16px!important;background:#fff}
+#studentCode{box-sizing:border-box;width:100%;min-height:52px;padding:13px 14px;border:1px solid #cbd5e1;border-radius:12px;font-size:18px;line-height:1.2;margin-top:8px}
+#checkinButton{box-sizing:border-box;width:100%;min-height:52px;margin-top:10px;padding:12px 16px;border:0;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.checkin-hint{font-size:14px;line-height:1.5;margin:0 0 8px}
+#connectionStatus,#result{line-height:1.5;overflow-wrap:anywhere}
+#recordList{max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+@media (min-width:700px){
+  .checkin-page{max-width:900px}
+  .checkin-header{flex-direction:row;align-items:flex-start;justify-content:space-between}
+  .checkin-links{display:flex;flex-wrap:wrap;justify-content:flex-end}
+  .checkin-links a{white-space:nowrap}
+}
+@media (max-width:420px){
+  .container{padding:10px}
+  .wide-card{padding:14px!important}
+  .checkin-section{padding:14px}
+  .checkin-links a{font-size:12px;padding:8px 4px}
+}
+</style>
+</head>
+<body>
+<main class="container">
+<section class="card wide-card checkin-page">
+  <div class="checkin-header">
+    <div>
+      <div class="badge">QR Check-in</div>
+      <h1>เช็กชื่อด้วย QR</h1>
+      <p class="subtitle">สแกน QR ของนักเรียนเพื่อบันทึกการเข้าเรียน</p>
+    </div>
+    <nav class="checkin-links" aria-label="เมนูระบบ">
+      <a class="back-link" href="sessions.html">📚 คาบเรียน</a>
+      <a class="back-link" href="students.html">👨‍🎓 นักเรียน</a>
+      <a class="back-link" href="index.html">← หน้าเช็กชื่อ</a>
+    </nav>
+  </div>
+
+  <div id="connectionStatus" class="result">กำลังเชื่อมต่อฐานข้อมูล...</div>
+
+  <section class="checkin-section">
+    <h2>1. เลือกคาบเรียน</h2>
+    <select id="sessionSelect">
+      <option value="">กำลังโหลด...</option>
+    </select>
+    <div id="sessionInfo" class="student-info hidden"></div>
+  </section>
+
+  <section class="checkin-section">
+    <h2>2. ใส่รหัสจาก QR</h2>
+    <p class="hint checkin-hint">เพื่อทดสอบก่อน เราใช้ช่องกรอกรหัสนักเรียนแทนกล้องสแกน</p>
+    <input id="studentCode" inputmode="numeric" autocomplete="off" placeholder="เช่น 68201050001" aria-label="รหัสนักเรียน">
+    <button id="checkinButton" type="button">✅ เช็กชื่อ</button>
+    <div id="result" class="result hidden"></div>
+  </section>
+
+  <section class="history checkin-section">
+    <h2>ผู้ที่เช็กชื่อแล้ว</h2>
+    <div id="recordList" class="hint">เลือกคาบเรียนก่อน</div>
+  </section>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="checkin.js"></script>
+</body>
+</html>
