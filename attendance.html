@@ -1,9 +1,157 @@
 <!DOCTYPE html>
 <html lang="th">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ตรวจสอบการเข้าเรียน</title><link rel="stylesheet" href="style.css?v=50"></head>
-<body><main class="container"><section class="card wide-card">
-<div class="badge">ระบบเช็กชื่อด้วย QR Code</div><h1>📋 ตรวจสอบการเข้าเรียน</h1><p class="subtitle">วิทยาลัยเทคนิคพนมสารคาม</p>
-<div id="attendance-content"></div>
-</section></main>
-<script src="supabase-config.js"></script><script src="attendance.js?v=50"></script>
-</body></html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#7f1d1d">
+  <title>ตรวจสอบการเข้าเรียน</title>
+  <link rel="stylesheet" href="style.css?v=50">
+  <style>
+    /* Student Check-in: mobile-first presentation only; attendance.js remains unchanged. */
+    :root {
+      --checkin-bg: #f8fafc;
+      --checkin-card: #ffffff;
+      --checkin-border: #e2e8f0;
+      --checkin-text: #1e293b;
+      --checkin-muted: #64748b;
+      --checkin-primary: #991b1b;
+      --checkin-primary-dark: #7f1d1d;
+      --checkin-focus: #fee2e2;
+    }
+
+    body {
+      background: var(--checkin-bg);
+    }
+
+    .student-checkin-shell {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: max(16px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
+    }
+
+    .student-checkin-card {
+      width: min(100%, 560px);
+      margin: 0 auto;
+      padding: clamp(20px, 5vw, 32px);
+      background: var(--checkin-card);
+      border: 1px solid var(--checkin-border);
+      border-radius: 20px;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, .08);
+    }
+
+    .student-checkin-header {
+      margin-bottom: 22px;
+    }
+
+    .student-checkin-header h1 {
+      margin: 14px 0 6px;
+      font-size: clamp(25px, 7vw, 36px);
+      line-height: 1.2;
+    }
+
+    .student-checkin-subtitle {
+      margin: 0;
+      color: var(--checkin-muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    #attendance-content {
+      width: 100%;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    #attendance-content form {
+      margin-top: 20px;
+    }
+
+    #attendance-content label {
+      font-size: 15px;
+      margin: 0 0 8px;
+    }
+
+    #attendance-content input,
+    #attendance-content select {
+      min-height: 52px;
+      padding: 13px 15px;
+      font-size: 17px;
+      border-radius: 14px;
+    }
+
+    #attendance-content input:focus,
+    #attendance-content select:focus {
+      outline: 3px solid var(--checkin-focus);
+      outline-offset: 1px;
+    }
+
+    #attendance-content button {
+      min-height: 52px;
+      margin-top: 16px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-size: 17px;
+    }
+
+    #attendance-content .result,
+    #attendance-content .empty-state {
+      border-radius: 14px;
+      padding: 15px;
+      line-height: 1.55;
+    }
+
+    #attendance-content table {
+      min-width: 0;
+    }
+
+    @media (max-width: 480px) {
+      .student-checkin-shell {
+        align-items: flex-start;
+        padding: 12px 10px max(16px, env(safe-area-inset-bottom));
+      }
+
+      .student-checkin-card {
+        width: 100%;
+        padding: 20px 16px;
+        border-radius: 18px;
+      }
+
+      .student-checkin-header {
+        margin-bottom: 18px;
+      }
+
+      .student-checkin-header h1 {
+        font-size: 27px;
+      }
+
+      .student-checkin-subtitle {
+        font-size: 14px;
+      }
+
+      #attendance-content input,
+      #attendance-content select,
+      #attendance-content button {
+        min-height: 54px;
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="student-checkin-shell">
+    <section class="student-checkin-card" aria-labelledby="checkin-title">
+      <header class="student-checkin-header">
+        <div class="badge">ระบบเช็กชื่อด้วย QR Code</div>
+        <h1 id="checkin-title">📋 ตรวจสอบการเข้าเรียน</h1>
+        <p class="student-checkin-subtitle">วิทยาลัยเทคนิคพนมสารคาม</p>
+      </header>
+      <div id="attendance-content"></div>
+    </section>
+  </main>
+  <script src="supabase-config.js"></script>
+  <script src="attendance.js?v=50"></script>
+</body>
+</html>
