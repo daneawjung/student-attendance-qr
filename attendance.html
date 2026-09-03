@@ -12,10 +12,8 @@
       --checkin-bg: #f8fafc;
       --checkin-card: #ffffff;
       --checkin-border: #e2e8f0;
-      --checkin-text: #1e293b;
       --checkin-muted: #64748b;
       --checkin-primary: #991b1b;
-      --checkin-primary-dark: #7f1d1d;
       --checkin-focus: #fee2e2;
     }
 
@@ -27,15 +25,15 @@
       width: 100%;
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: max(16px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
+      padding: max(24px, env(safe-area-inset-top)) 12px max(24px, env(safe-area-inset-bottom));
     }
 
     .student-checkin-card {
       width: min(100%, 560px);
       margin: 0 auto;
-      padding: clamp(20px, 5vw, 32px);
+      padding: 24px clamp(18px, 5vw, 32px) 28px;
       background: var(--checkin-card);
       border: 1px solid var(--checkin-border);
       border-radius: 20px;
@@ -43,11 +41,17 @@
     }
 
     .student-checkin-header {
-      margin-bottom: 22px;
+      margin-bottom: 20px;
+    }
+
+    .student-checkin-header .badge {
+      margin: 0;
+      font-size: 13px;
+      padding: 6px 11px;
     }
 
     .student-checkin-header h1 {
-      margin: 14px 0 6px;
+      margin: 12px 0 5px;
       font-size: clamp(25px, 7vw, 36px);
       line-height: 1.2;
     }
@@ -66,7 +70,7 @@
     }
 
     #attendance-content form {
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     #attendance-content label {
@@ -76,7 +80,8 @@
 
     #attendance-content input,
     #attendance-content select {
-      min-height: 52px;
+      width: 100%;
+      min-height: 54px;
       padding: 13px 15px;
       font-size: 17px;
       border-radius: 14px;
@@ -89,8 +94,9 @@
     }
 
     #attendance-content button {
-      min-height: 52px;
-      margin-top: 16px;
+      width: 100%;
+      min-height: 54px;
+      margin-top: 14px;
       padding: 13px 18px;
       border-radius: 14px;
       font-size: 17px;
@@ -109,13 +115,11 @@
 
     @media (max-width: 480px) {
       .student-checkin-shell {
-        align-items: flex-start;
-        padding: 12px 10px max(16px, env(safe-area-inset-bottom));
+        padding: max(14px, env(safe-area-inset-top)) 10px max(18px, env(safe-area-inset-bottom));
       }
 
       .student-checkin-card {
-        width: 100%;
-        padding: 20px 16px;
+        padding: 20px 16px 24px;
         border-radius: 18px;
       }
 
@@ -123,7 +127,12 @@
         margin-bottom: 18px;
       }
 
+      .student-checkin-header .badge {
+        font-size: 12px;
+      }
+
       .student-checkin-header h1 {
+        margin-top: 10px;
         font-size: 27px;
       }
 
@@ -134,7 +143,7 @@
       #attendance-content input,
       #attendance-content select,
       #attendance-content button {
-        min-height: 54px;
+        min-height: 56px;
         font-size: 17px;
       }
     }
