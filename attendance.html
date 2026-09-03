@@ -7,7 +7,6 @@
   <title>ตรวจสอบการเข้าเรียน</title>
   <link rel="stylesheet" href="style.css?v=50">
   <style>
-    /* Student Check-in: presentation only; attendance.js keeps the existing attendance logic. */
     :root { --checkin-bg:#f8fafc;--checkin-card:#fff;--checkin-border:#e2e8f0;--checkin-muted:#64748b;--checkin-primary:#991b1b;--checkin-primary-dark:#7f1d1d;--checkin-focus:#fee2e2;--checkin-success-bg:#ecfdf5;--checkin-success:#166534;--checkin-error-bg:#fef2f2;--checkin-error:#991b1b; }
     body { background:var(--checkin-bg); }
     .student-checkin-shell { width:100%;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:max(14px,env(safe-area-inset-top)) 10px max(18px,env(safe-area-inset-bottom)); }
@@ -44,13 +43,14 @@
           <label for="studentCode">รหัสนักเรียน</label>
           <input id="studentCode" class="student-code-input" type="text" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="กรอกรหัสนักเรียน" aria-label="รหัสนักเรียน" required>
           <button id="confirmButton" class="student-checkin-button" type="submit">✅ ยืนยันเช็กชื่อ</button>
-          <div id="message" class="checkin-message hidden" role="status" aria-live="polite"></div>
         </form>
+        <!-- Keep the result outside the form so it remains visible after the form is hidden. -->
+        <div id="message" class="checkin-message hidden" role="status" aria-live="polite"></div>
       </div>
     </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js"></script>
-  <script src="attendance.js?v=52"></script>
+  <script src="supabase-config.js?v=53"></script>
+  <script src="attendance.js?v=53"></script>
 </body>
 </html>
