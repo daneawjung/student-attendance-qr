@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#7f1d1d">
+<title>ลงทะเบียนเรียน | ระบบเช็กชื่อ</title>
+<link rel="stylesheet" href="style.css?v=56">
+<style>
+.enroll-hero{padding:22px 24px;border-radius:20px;background:linear-gradient(135deg,#7f1d1d,#991b1b);color:#fff;margin-bottom:20px}.enroll-hero h2{margin:0 0 6px;color:#fff}.enroll-hero p{margin:0;color:#fee2e2;line-height:1.7}.enroll-filters{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:14px;align-items:end}.enroll-filters label{margin-top:0;font-weight:700}.enroll-filters button{margin:0}.enroll-info{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 12px}.capacity{padding:9px 13px;border-radius:999px;background:#fef2f2;color:#991b1b;font-weight:700}.student-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0}.student-tools input{flex:1;min-width:220px}.student-tools button{width:auto;margin:0}.selection-count{font-weight:700;color:#475569}.enroll-table th:first-child,.enroll-table td:first-child{width:44px;text-align:center}.enroll-table input[type=checkbox]{width:20px;height:20px}.status-enrolled{color:#166534;font-weight:700}.status-not{color:#64748b}.row-enrolled{background:#f0fdf4}.bulk-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.bulk-actions button{width:auto;margin:0}.danger-action{background:#fee2e2;color:#991b1b;box-shadow:none}.hint-box{margin-top:14px;padding:13px 15px;border-radius:12px;background:#f8fafc;color:#475569;font-size:14px;line-height:1.7}.hidden{display:none!important}@media(max-width:750px){.enroll-filters{grid-template-columns:1fr}.enroll-filters button{width:100%}.enroll-table{min-width:650px}.enroll-hero{padding:18px}.student-tools{align-items:stretch}.student-tools input{min-width:100%}}
+</style>
+</head>
+<body>
+<main class="container"><section class="card wide-card">
+<div class="topbar"><div><div class="badge">📋 ลงทะเบียนเรียน</div><h1>📋 ลงทะเบียนเรียน</h1><p class="subtitle">จัดนักเรียนเข้ารายวิชาแยกตามภาคเรียนและห้อง</p></div><div class="top-links"><a class="back-link" href="index.html?v=56">🏠 หน้าแรก</a><a class="back-link" href="dashboard.html?v=56">📊 Dashboard</a><a class="back-link" href="students.html?v=56">👨‍🎓 นักเรียน</a><a class="back-link" href="subjects.html?v=56">📚 รายวิชา</a></div></div>
+<section class="enroll-hero"><h2>กำหนดรายชื่อผู้เรียนก่อนเช็กชื่อ</h2><p>นักเรียนต้องมีชื่อใน “จัดการนักเรียน” และลงทะเบียนรายวิชานี้ก่อน จึงจะสามารถเช็กชื่อผ่าน QR Code ได้</p></section>
+<div id="connectionStatus" class="result">กำลังโหลดข้อมูล...</div>
+<section class="card" style="margin:18px 0;padding:22px">
+<h2>1. เลือกภาคเรียน รายวิชา และห้อง</h2>
+<div class="enroll-filters"><div><label for="termSelect">ภาคเรียน</label><select id="termSelect"></select></div><div><label for="subjectSelect">รายวิชา</label><select id="subjectSelect"></select></div><div><label for="classSelect">ห้อง</label><select id="classSelect"></select></div></div>
+<div class="hint-box">การลงทะเบียนจะถูกบันทึกเฉพาะ <strong>ภาคเรียน + รายวิชา + ห้อง</strong> ที่เลือก ข้อมูลการเช็กชื่อของภาคเรียนอื่นจะไม่ถูกเปลี่ยน</div>
+</section>
+<section>
+<div class="enroll-info"><h2 style="margin:0">2. เลือกรายชื่อนักเรียน</h2><div id="capacity" class="capacity">ยังไม่ได้เลือก</div></div>
+<div class="student-tools"><input id="studentSearch" type="search" placeholder="🔎 ค้นหารหัสหรือชื่อ..." disabled><button id="selectAll" type="button" class="secondary" disabled>☑️ เลือกทั้งหมด</button><span id="selectionCount" class="selection-count">เลือก 0 คน</span></div>
+<div class="table-wrap"><table class="enroll-table"><thead><tr><th><input id="checkAll" type="checkbox" disabled></th><th>#</th><th>รหัสนักเรียน</th><th>ชื่อ-สกุล</th><th>ห้อง</th><th>สถานะ</th></tr></thead><tbody id="studentTable"></tbody></table></div>
+<div id="emptyState" class="empty-state hidden">ไม่พบรายชื่อนักเรียนในห้องนี้</div>
+<div class="bulk-actions"><button id="enrollButton" type="button" disabled>✅ ลงทะเบียนที่เลือก</button><button id="removeButton" type="button" class="danger-action" disabled>↩️ ถอนการลงทะเบียนที่เลือก</button></div>
+</section>
+<div id="message" class="result hidden"></div>
+</section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js?v=56"></script><script src="enrollments.js?v=1"></script>
+</body></html>
